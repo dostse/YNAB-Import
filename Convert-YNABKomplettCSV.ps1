@@ -1,6 +1,6 @@
 param([Parameter(Mandatory = $true)]
 [string]
-$Path = "C:\Users\SLayER\Downloads\transaktioner.csv"
+$Path
 )
 
 $Outfile = "c:\Temp\YNAB_KOMPLETT_$(Get-Date -Format yyyyMMdd_HHmmss).csv"
