@@ -1,11 +1,12 @@
 param([Parameter(Mandatory = $true)]
 [string]
-$Path
+$InPath,
+[Parameter(Mandatory = $true)]
+[string]
+$OutPath
 )
 
-$Outfile = "c:\Temp\YNAB_SwedBank_$(Get-Date -Format yyyyMMdd_HHmmss).csv"
-
-$CSV = Get-Content -Path $Path | Select-Object -Skip 1 | ConvertFrom-Csv #-Header @("Radnummer","Clearingnummer","Kontonummer","Produkt","Valuta","Bokföringsdag","Transaktionsdag","Valutadag","Referens","Beskrivning","Belopp","Bokfört saldo")
+$CSV = Get-Content -Path $InPath | Select-Object -Skip 1 | ConvertFrom-Csv #-Header @("Radnummer","Clearingnummer","Kontonummer","Produkt","Valuta","Bokföringsdag","Transaktionsdag","Valutadag","Referens","Beskrivning","Belopp","Bokfört saldo")
 $Table = @()
 
 foreach($Item in $CSV){
@@ -20,4 +21,4 @@ foreach($Item in $CSV){
     $Table += $obj
 }
 
-$Table | Export-Csv -Path $Outfile -Delimiter "," -Encoding UTF8 -NoClobber -NoTypeInformation
+$Table | Export-Csv -Path $OutPath -Delimiter "," -Encoding UTF8 -NoClobber -NoTypeInformation

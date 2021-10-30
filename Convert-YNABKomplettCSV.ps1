@@ -1,11 +1,12 @@
 param([Parameter(Mandatory = $true)]
 [string]
-$Path
+$InPath,
+[Parameter(Mandatory = $true)]
+[string]
+$OutPath
 )
 
-$Outfile = "c:\Temp\YNAB_KOMPLETT_$(Get-Date -Format yyyyMMdd_HHmmss).csv"
-
-$CSV = Import-Csv -Path $Path  -Encoding UTF7
+$CSV = Import-Csv -Path $InPath  -Encoding UTF7
 
 $Table = @()
 
@@ -21,4 +22,4 @@ foreach($Item in $CSV){
     $Table += $obj
 }
 
-$Table | Export-Csv -Path $Outfile -Delimiter "," -Encoding UTF8 -NoClobber -NoTypeInformation
+$Table | Export-Csv -Path $OutPath -Delimiter "," -Encoding UTF8 -NoClobber -NoTypeInformation
